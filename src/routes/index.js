@@ -9,8 +9,8 @@ const router = express.Router()
  * Protect them all with middleware so you have to be authenticated
  * in order to access things.
  */
-// router.use(`/v1`, authenticate(), require("./api"))
-router.use(`/v1`, require("./api"))
+// router.use(`/`, authenticate(), require("./api"))
+router.use(`/`, require("./api"))
 
 /**
  * Define a simple health check route. If the server is running
