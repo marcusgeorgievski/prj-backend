@@ -16,4 +16,5 @@ benchmarks/graphs
 
 # others
 .DS_store
-.env*
+.env
+.env.local

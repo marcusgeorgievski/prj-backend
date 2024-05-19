@@ -1,3 +1,4 @@
+const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node")
 const express = require("express")
 const author = require("../../package.json").author
 
@@ -23,6 +24,11 @@ router.get("/", (req, res) => {
     author,
     githubUrl: "https://github.com/marcusgeorgievski/prj-backend",
   })
+})
+
+// Route that requires authentication through Clerk
+router.get("/clerk-test", ClerkExpressRequireAuth({}), (req, res) => {
+  res.json({ result: "success", ...req.auth })
 })
 
 module.exports = router
