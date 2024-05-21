@@ -1,5 +1,18 @@
-import db from "."
+const db = require("./index")
 
-function getUserClasses(userId) {
-  return db.query(`SELECT * FROM classes WHERE user_id = ${userId}`)
+// Users
+
+async function getAllUsers() {
+  return db`SELECT * FROM users`
+}
+
+// Classes
+
+async function getUserClasses(userId) {
+  return db`SELECT * FROM classes WHERE user_id = ${userId}`
+}
+
+module.exports = {
+  getAllUsers,
+  getUserClasses,
 }

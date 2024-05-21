@@ -1,10 +1,12 @@
-import postgres from "postgres"
+const postgres = require("postgres")
 
 const db = postgres({
-  host: "ep-soft-heart-a5ddfij6.us-east-2.aws.neon.tech",
-  database: "neondb",
-  user: "neondb_owner",
-  password: "ucMQx63oSziB",
+  host: process.env.PGHOST,
+  port: 5432,
+  database: process.env.PGDATABASE,
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  ssl: "require",
 })
 
-export default db
+module.exports = db
