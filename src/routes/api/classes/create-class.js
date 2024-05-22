@@ -5,7 +5,7 @@ const logger = require("../../../logger")
 module.exports = async (req, res, next) => {
   try {
     const { name, professor, details, user_id } = req.body
-    logger.debug(req.body)
+    logger.debug("Creating class: " + req.body)
 
     if (!name || !user_id) {
       return res

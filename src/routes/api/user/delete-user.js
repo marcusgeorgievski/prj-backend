@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     const { data } = req.body
     const id = data.id
 
-    console.log("\n\nid", id)
+    logger.debug(`Deleting user with id: ${id}`)
 
     if (!id) {
       return res.status(400).json({ error: "user id is required" })
