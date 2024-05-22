@@ -3,7 +3,8 @@ const logger = require("../../../logger")
 
 module.exports = async (req, res, next) => {
   try {
-    const { id } = req.body
+    const { data } = req.body
+    const id = data.id
 
     console.log("\n\nid", id)
 
