@@ -6,7 +6,7 @@ const db = postgres({
   database: process.env.PGDATABASE,
   username: process.env.PGUSER,
   password: process.env.PGPASSWORD,
-  ssl: "require",
+  ssl: "true",
 })
 
 module.exports = db
