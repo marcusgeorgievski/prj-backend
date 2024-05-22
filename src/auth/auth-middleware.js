@@ -1,10 +1,9 @@
-import {
+const {
   ClerkExpressRequireAuth,
   ClerkExpressWithAuth,
-} from "@clerk/clerk-sdk-node"
-import app from "../app"
+} = require("@clerk/clerk-sdk-node")
 
-import { Router } from "express"
+const router = express.Router()
 
 // app.use(ClerkExpressWithAuth())
 router.get("/clerk", (req, res) => {

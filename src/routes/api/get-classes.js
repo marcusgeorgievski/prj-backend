@@ -1,24 +1,9 @@
+const getUserClasses = require("../../db/queries").getUserClasses
+
 module.exports = async (req, res, next) => {
   // db code here
+  const classes = await getUserClasses("user_1") // user_1 for sample data
+  console.log("classes: ", classes)
 
-  // sample return value
-  res.status(200).json({
-    classes: [
-      {
-        id: 1,
-        name: "Math 101",
-        description: "Introduction to Algebra",
-      },
-      {
-        id: 2,
-        name: "Math 102",
-        description: "Introduction to Calculus",
-      },
-      {
-        id: 3,
-        name: "Math 103",
-        description: "Introduction to Statistics",
-      },
-    ],
-  })
+  res.status(200).json(classes)
 }
