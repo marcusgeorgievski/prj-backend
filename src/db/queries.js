@@ -1,3 +1,4 @@
+const logger = require("../logger");
 const db = require("./index")
 
 
@@ -6,14 +7,23 @@ async function getAllUsers() {
   return db`SELECT * FROM users`
 }
 
-// Classes
-
+// Get user's classes
 async function getUserClasses(userId) {
-  return db`SELECT * FROM classes WHERE user_id = ${userId}`
+  try {
+    const result = await db`
+      SELECT * FROM classes
+      WHERE user_id = ${userId}
+    `;
+    return result;
+  }
+  catch (error) {
+    logger.error('Error getting user classes:',error)
+    throw error;
+  }
 }
 
 
-//add new class
+// Create new class
 async function createClass(name, professor, details, userId) {
   try {
     const result = await db`
@@ -23,12 +33,12 @@ async function createClass(name, professor, details, userId) {
     `;
     return result;
   } catch (error) {
-    console.error('Error creating class:', error);
+    logger.error('Error creating class:',error)
     throw error;
   }
 }
 
-//delete
+// Delete class
 async function deleteClass(classId) {
   try {
     const result = await db`
@@ -38,7 +48,7 @@ async function deleteClass(classId) {
     `;
     return result;
   } catch (error) {
-    console.error('Error deleting class:', error);
+    logger.error('Error deleting class:',error)
     throw error;
   }
 }

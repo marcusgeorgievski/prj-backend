@@ -7,7 +7,6 @@ const db = postgres({
   username: process.env.PGUSER,
   password: process.env.PGPASSWORD,
   ssl: "true",
-  sql: postgres.sql,
 })
 
 module.exports = db;

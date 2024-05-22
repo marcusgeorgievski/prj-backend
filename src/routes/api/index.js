@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const getClassesRoute = require('./get-classes');
-const addClassRoute = require('./add-class');
+const addClassRoute = require('./create-class');
 const deleteClassRoute = require('./delete-class');
 
 router.get('/classes', getClassesRoute);
