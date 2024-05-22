@@ -7,6 +7,35 @@ async function getAllUsers() {
   return db`SELECT * FROM users`
 }
 
+async function createUser(userId) {
+  try {
+    const result = await db`
+      INSERT INTO users (user_id)
+      VALUES (${userId})
+      RETURNING *;
+    `;
+    return result;
+  } catch (error) {
+    logger.error('Error creating user:',error)
+    throw error;
+  }
+}
+
+async function deleteUser(userId) {
+  try {
+    const result = await db`
+      DELETE FROM users
+      WHERE user_id = ${userId}
+      RETURNING *;
+    `;
+    return result;
+  } catch (error) {
+    logger.error('Error deleting user:',error)
+    throw error;
+  }
+
+}
+
 // Get user's classes
 async function getUserClasses(userId) {
   try {
@@ -55,6 +84,8 @@ async function deleteClass(classId) {
 
 module.exports = {
   getAllUsers,
+  createUser,
+  deleteUser,
   getUserClasses,
   createClass,
   deleteClass

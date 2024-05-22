@@ -18,3 +18,4 @@ benchmarks/graphs
 .DS_store
 .env
 .env.local
+.prettierrc

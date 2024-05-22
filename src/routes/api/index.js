@@ -1,12 +1,12 @@
-const express = require('express');
-const router = express.Router();
+const express = require("express")
+const router = express.Router()
 
-const getClassesRoute = require('./get-classes');
-const addClassRoute = require('./create-class');
-const deleteClassRoute = require('./delete-class');
+router.get("/classes", require("./classes/get-classes"))
+router.post("/classes", require("./classes/create-class"))
+router.delete("/classes/:classId", require("./classes/delete-class"))
 
-router.get('/classes', getClassesRoute);
-router.post('/classes', addClassRoute);
-router.delete('/classes/:classId', deleteClassRoute);
+// Webhooks
+router.post("/create-user", require("./user/create-user"))
+router.post("/delete-user", require("./user/delete-user"))
 
-module.exports = router;
+module.exports = router
