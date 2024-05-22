@@ -36,6 +36,7 @@ router.get("/", async (req, res) => {
     });
   } catch (error) {
     const duration = Date.now() - start;
+    console .log(error);
     
     res.setHeader("Cache-Control", "no-cache");
     res.status(500).json({

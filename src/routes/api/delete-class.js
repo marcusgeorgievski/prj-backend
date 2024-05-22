@@ -1,5 +1,4 @@
-// routes/api/delete-class.js
-const db = require('../../db');
+const { deleteClass } = require('../../db/queries');
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,20 +9,13 @@ module.exports = async (req, res, next) => {
       return res.status(400).json({ error: 'classId is required' });
     }
 
-    // Delete the class from the database
-    const query = `
-      DELETE FROM classes
-      WHERE class_id = $1
-      RETURNING *;
-    `;
-    const values = [classId];
-    const deletedClass = await db.query(query, values);
+    const deletedClass = await deleteClass(classId);
 
-    if (deletedClass.rows.length === 0) {
+    if (deletedClass.length === 0) {
       return res.status(404).json({ error: 'Class not found' });
     }
 
-    res.status(200).json(deletedClass.rows[0]);
+    res.status(200).json(deletedClass[0]);
   } catch (error) {
     next(error);
   }
