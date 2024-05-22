@@ -1,11 +1,12 @@
-const express = require("express")
+const express = require('express');
+const router = express.Router();
 
-// Create a router on which to mount our API endpoints
-const router = express.Router()
+const getClassesRoute = require('./get-classes');
+const addClassRoute = require('./add-class');
+const deleteClassRoute = require('./delete-class');
 
-// Routes can go here. We can define the functions in other files
-router.get("/classes", require("./get-classes"));
-router.post("/classes", require("./add-class"));
-router.delete("/classes/:id", require("./delete-class"));
+router.get('/classes', getClassesRoute);
+router.post('/classes', addClassRoute);
+router.delete('/classes/:classId', deleteClassRoute);
 
-module.exports = router
+module.exports = router;
