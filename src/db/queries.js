@@ -82,11 +82,31 @@ async function deleteClass(classId) {
   }
 }
 
+//Update class
+async function updateClass(classId, user_id, name, professor, details) {
+  try {
+    const result = await db`
+    UPDATE classes
+    SET name = ${name},
+        professor = ${professor},
+        details = ${details}
+    WHERE class_id = ${classId} 
+      AND user_id = ${user_id}
+      RETURNING *
+    `;
+    return result;
+  } catch (error){
+    logger.error('Error updating class:',error)
+    throw error;
+  }
+}
+
 module.exports = {
   getAllUsers,
   createUser,
   deleteUser,
   getUserClasses,
   createClass,
-  deleteClass
+  deleteClass,
+  updateClass
 };
