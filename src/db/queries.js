@@ -1,7 +1,5 @@
-const logger = require("../logger");
+const logger = require("../logger")
 const db = require("./index")
-
-
 
 async function getAllUsers() {
   return db`SELECT * FROM users`
@@ -13,11 +11,11 @@ async function createUser(userId) {
       INSERT INTO users (user_id)
       VALUES (${userId})
       RETURNING *;
-    `;
-    return result;
+    `
+    return result
   } catch (error) {
-    logger.error('Error creating user:',error)
-    throw error;
+    logger.error("Error creating user:", error)
+    throw error
   }
 }
 
@@ -27,13 +25,12 @@ async function deleteUser(userId) {
       DELETE FROM users
       WHERE user_id = ${userId}
       RETURNING *;
-    `;
-    return result;
+    `
+    return result
   } catch (error) {
-    logger.error('Error deleting user:',error)
-    throw error;
+    logger.error("Error deleting user:", error)
+    throw error
   }
-
 }
 
 // Get user's classes
@@ -42,15 +39,13 @@ async function getUserClasses(userId) {
     const result = await db`
       SELECT * FROM classes
       WHERE user_id = ${userId}
-    `;
-    return result;
-  }
-  catch (error) {
-    logger.error('Error getting user classes:',error)
-    throw error;
+    `
+    return result
+  } catch (error) {
+    logger.error("Error getting user classes:", error)
+    throw error
   }
 }
-
 
 // Create new class
 async function createClass(name, professor, details, userId) {
@@ -59,11 +54,11 @@ async function createClass(name, professor, details, userId) {
       INSERT INTO classes (name, professor, details, user_id)
       VALUES (${name}, ${professor}, ${details}, ${userId})
       RETURNING *;
-    `;
-    return result;
+    `
+    return result
   } catch (error) {
-    logger.error('Error creating class:',error)
-    throw error;
+    logger.error("Error creating class:", error)
+    throw error
   }
 }
 
@@ -74,16 +69,16 @@ async function deleteClass(classId) {
       DELETE FROM classes
       WHERE class_id = ${classId}
       RETURNING *;
-    `;
-    return result;
+    `
+    return result
   } catch (error) {
-    logger.error('Error deleting class:',error)
-    throw error;
+    logger.error("Error deleting class:", error)
+    throw error
   }
 }
 
 //Update class
-async function updateClass(classId, user_id, name, professor, details) {
+async function updateClass(classId, name, professor, details) {
   try {
     const result = await db`
     UPDATE classes
@@ -91,13 +86,12 @@ async function updateClass(classId, user_id, name, professor, details) {
         professor = ${professor},
         details = ${details}
     WHERE class_id = ${classId} 
-      AND user_id = ${user_id}
-      RETURNING *
-    `;
-    return result;
-  } catch (error){
-    logger.error('Error updating class:',error)
-    throw error;
+    RETURNING *
+    `
+    return result
+  } catch (error) {
+    logger.error("Error updating class:", error)
+    throw error
   }
 }
 
@@ -108,5 +102,5 @@ module.exports = {
   getUserClasses,
   createClass,
   deleteClass,
-  updateClass
-};
+  updateClass,
+}

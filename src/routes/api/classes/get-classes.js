@@ -1,3 +1,5 @@
+const logger = require("../../../logger")
+
 const getUserClasses = require("../../../db/queries").getUserClasses
 
 module.exports = async (req, res, next) => {
@@ -6,6 +8,7 @@ module.exports = async (req, res, next) => {
     const classes = await getUserClasses(user_id)
     res.status(200).json(classes)
   } catch (error) {
+    logger.error(error)
     next(error)
   }
 }

@@ -8,6 +8,7 @@ module.exports = async (req, res, next) => {
     logger.debug("Creating class: " + req.body)
 
     if (!name || !user_id) {
+      logger.error("name, professor, and userId are required")
       return res
         .status(400)
         .json({ error: "name, professor, and userId are required" })
@@ -17,6 +18,7 @@ module.exports = async (req, res, next) => {
     logger.info("New class:", newClass)
     res.status(201).json(newClass[0])
   } catch (error) {
+    logger.error(error)
     next(error)
   }
 }
