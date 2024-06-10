@@ -19,40 +19,35 @@ router.use(`/`, require("./api"))
  * we'll respond with a 200 OK.  If not, the server isn't healthy.
  */
 router.get("/", async (req, res) => {
-  const start = Date.now();
+  const start = Date.now()
 
   try {
     // Perform a simple query to check the database connection
-    await db`SELECT 1`;
-    const duration = Date.now() - start;
+    await db`SELECT 1`
+    const duration = Date.now() - start
 
-    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Cache-Control", "no-cache")
     res.status(200).json({
       author,
       githubUrl: "https://github.com/marcusgeorgievski/prj-backend",
       time: new Date().toISOString(),
       dbStatus: "healthy",
-      dbResponseTime: `${duration}ms`
-    });
+      dbResponseTime: `${duration}ms`,
+    })
   } catch (error) {
-    const duration = Date.now() - start;
-    console .log(error);
-    
-    res.setHeader("Cache-Control", "no-cache");
+    const duration = Date.now() - start
+    console.log(error)
+
+    res.setHeader("Cache-Control", "no-cache")
     res.status(500).json({
       author,
       githubUrl: "https://github.com/marcusgeorgievski/prj-backend",
       time: new Date().toISOString(),
       dbStatus: "unhealthy",
       dbResponseTime: `${duration}ms`,
-      error: error.message
-    });
+      error: error.message,
+    })
   }
-});
-
-// Route that requires authentication through Clerk
-router.get("/clerk-test", ClerkExpressRequireAuth({}), (req, res) => {
-  res.json({ result: "success", ...req.auth })
 })
 
 module.exports = router
