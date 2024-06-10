@@ -1,12 +1,18 @@
-const {
-  ClerkExpressRequireAuth,
-  ClerkExpressWithAuth,
-} = require("@clerk/clerk-sdk-node")
+const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node")
+const { createErrorResponse } = require("../response")
 
-const router = express.Router()
-
-// app.use(ClerkExpressWithAuth())
-router.get("/clerk", (req, res) => {
-  //   res.json(req.auth)
-  res.json({ result: "success" })
-})
+module.exports.AuthMiddleware = () => {
+  return async function (req, res, next) {
+    try {
+      await ClerkExpressRequireAuth()(req, res, (err) => {
+        // custom error
+        if (err) {
+          return res.status(401).json(createErrorResponse(401, "Unauthorized"))
+        }
+        next()
+      })
+    } catch (error) {
+      res.status(401).json(createErrorResponse(401, "Unauthorized"))
+    }
+  }
+}
