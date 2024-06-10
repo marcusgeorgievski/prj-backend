@@ -2,7 +2,8 @@ const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node")
 const express = require("express")
 const author = require("../../package.json").author
 const db = require("../db")
-const { AuthMiddleware } = require("../auth/auth-middleware")
+
+const { authenticate } = require("../auth")
 
 // Create a router that we can use to mount our API
 const router = express.Router()
@@ -13,7 +14,7 @@ const router = express.Router()
  * in order to access things.
  */
 // router.use(`/`, authenticate(), require("./api"))
-router.use(`/api`, AuthMiddleware(), require("./api"))
+router.use(`/api`, authenticate(), require("./api"))
 
 /**
  * Define a simple health check route. If the server is running

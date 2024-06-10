@@ -1,7 +1,7 @@
 const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node")
 const { createErrorResponse } = require("../response")
 
-module.exports.AuthMiddleware = () => {
+module.exports.authenticate = () => {
   return async function (req, res, next) {
     try {
       await ClerkExpressRequireAuth()(req, res, (err) => {
