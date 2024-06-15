@@ -7,15 +7,17 @@ module.exports = async (req, res, next) => {
 
     // Check if the classId is provided
     if (!classId) {
-      logger.error("classId is required")
-      return res.status(400).json({ error: "classId is required" })
+      const error = new Error("classId is required")
+      error.code = 400
+      throw error
     }
 
     const deletedClass = await deleteClass(classId)
 
     if (deletedClass.length === 0) {
-      logger.error("Class not found")
-      return res.status(404).json({ error: "Class not found" })
+      const error = new Error("Class not found")
+      error.code = 404
+      throw error
     }
 
     res.status(200).json(deletedClass[0])

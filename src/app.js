@@ -23,7 +23,14 @@ app.use("/", require("./routes"))
 //error handling:
 app.use((err, req, res, next) => {
   logger.error(err)
-  res.status(500).json(createErrorResponse(500, "Something went wrong"))
+  res
+    .status(500)
+    .json(
+      createErrorResponse(
+        err.code || 500,
+        err.message || "Something went wrong"
+      )
+    )
 })
 
 module.exports = app

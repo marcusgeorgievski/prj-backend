@@ -11,8 +11,11 @@ module.exports = async (req, res, next) => {
     logger.debug(`Creating user with id: ${id}`)
 
     if (!id) {
-      return res.status(400).json({ error: `user id is required: ${id}` })
+      const error = new Error("id is required")
+      error.code = 400
+      throw error
     }
+
     const newUser = await createUser(id)
     res.status(201).json(newUser[0])
   } catch (error) {
