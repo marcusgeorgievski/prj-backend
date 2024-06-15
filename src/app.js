@@ -18,7 +18,7 @@ app.use(cors()) // Use CORS middleware so we can make requests across origins
 app.use(pino)
 
 // Routes
-app.use("/", require("./routes"))
+app.use("/", require("./routes/index"))
 
 //error handling:
 app.use((err, req, res, next) => {

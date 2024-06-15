@@ -1,9 +1,8 @@
 const { createAssessment } = require("../../../db/queries");
 const logger = require("../../../logger");
-const { isAuthenticated } = require("../../../auth/auth-middleware");
 
-module.exports = [
-  isAuthenticated,
+
+module.exports =
   async (req, res, next) => {
     try {
       const { name, description, status, weight, dueDate, classId } = req.body;
@@ -34,5 +33,4 @@ module.exports = [
       logger.error("Error creating assessment:", error);
       next(error);
     }
-  }
-];
+  };

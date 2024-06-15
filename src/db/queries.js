@@ -110,6 +110,21 @@ async function createAssessment(name, description, status, weight, dueDate, clas
   }
 }
 
+// Delete assessment
+async function deleteAssessment(assessmentId, userId) {
+  try {
+    const result = await db`
+      DELETE FROM assessments
+      WHERE assessment_id = ${assessmentId} AND user_id = ${userId}
+      RETURNING *;
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error deleting assessment:", error);
+    throw error;
+  }
+}
+
 
 module.exports = {
   getAllUsers,
@@ -120,4 +135,5 @@ module.exports = {
   deleteClass,
   updateClass,
   createAssessment,
+  deleteAssessment
 }
