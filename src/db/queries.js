@@ -95,6 +95,37 @@ async function updateClass(classId, name, professor, details) {
   }
 }
 
+// Create a new assessment
+async function createAssessment(name, description, status, weight, dueDate, classId, userId) {
+  try {
+    const result = await db`
+      INSERT INTO assessments (name, description, status, weight, due_date, class_id, user_id)
+      VALUES (${name}, ${description}, ${status}, ${weight}, ${dueDate}, ${classId}, ${userId})
+      RETURNING *;
+    `;
+    return result;
+  } catch (error) {
+    logger.error('Error creating assessment:', error);
+    throw error;
+  }
+}
+
+// Delete assessment
+async function deleteAssessment(assessmentId, userId) {
+  try {
+    const result = await db`
+      DELETE FROM assessments
+      WHERE assessment_id = ${assessmentId} AND user_id = ${userId}
+      RETURNING *;
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error deleting assessment:", error);
+    throw error;
+  }
+}
+
+
 module.exports = {
   getAllUsers,
   createUser,
@@ -103,4 +134,6 @@ module.exports = {
   createClass,
   deleteClass,
   updateClass,
+  createAssessment,
+  deleteAssessment
 }

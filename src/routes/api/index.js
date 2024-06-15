@@ -7,6 +7,8 @@ router.get("/classes", require("./classes/get-classes"))
 router.post("/classes", require("./classes/create-class"))
 router.delete("/classes/:classId", require("./classes/delete-class"))
 router.put("/classes/:classId", require("./classes/update-class"))
+router.post("/assessment", require("./assessment/create-assessment"))
+router.delete("/assessment/:assessmentId", require("./assessment/delete-assessment"))
 
 // Webhooks
 router.post("/create-user", require("./user/create-user"))
