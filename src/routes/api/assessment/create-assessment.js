@@ -5,8 +5,8 @@ const logger = require("../../../logger");
 module.exports =
   async (req, res, next) => {
     try {
-      const { name, description, status, weight, dueDate, classId } = req.body;
-      const userId = req.user.userId;
+      const { name, description, status, weight, dueDate, classId, userId } = req.body;
+      //const userId = req.user.userId;
 
       // Input validation
       if (!name) {
@@ -15,7 +15,7 @@ module.exports =
       }
 
       // Cache the assessment data temporarily (e.g., in the session or in-memory cache)
-      req.session.tempAssessment = { name, description, status, weight, dueDate, classId };
+      //req.session.tempAssessment = { name, description, status, weight, dueDate, classId };
 
       const assessment = await createAssessment(
         name,

@@ -125,6 +125,29 @@ async function deleteAssessment(assessmentId, userId) {
   }
 }
 
+//update assessment
+async function updateAssessment(assessment_id, name, description, dueDate, status, weight, classId){
+  try {
+    const result = await db`
+    UPDATE assessments
+    SET name = ${name},
+        description = ${description},
+        due_date = ${dueDate},
+        status = ${status},
+        updated_at = now(),
+        weight = ${weight},
+        class_id = ${classId}
+    WHERE assessment_id = ${assessment_id} 
+    RETURNING *
+    `
+    return result
+}catch (error){
+  logger.error("Error updating assessment:", error)
+  throw error
+  }
+}
+
+
 
 module.exports = {
   getAllUsers,
@@ -135,5 +158,6 @@ module.exports = {
   deleteClass,
   updateClass,
   createAssessment,
-  deleteAssessment
+  deleteAssessment,
+  updateAssessment
 }
