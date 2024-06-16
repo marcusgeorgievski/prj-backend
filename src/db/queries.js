@@ -95,6 +95,21 @@ async function updateClass(classId, name, professor, details) {
   }
 }
 
+// Get user's assessments
+async function getUserAssessments(userId) {
+  try {
+    const result = await db`
+      SELECT * FROM assessments
+      WHERE user_id = ${userId}
+    `
+    return result
+  } catch (error) {
+    logger.error("Error getting user assessments:", error)
+    throw error
+  }
+}
+
+
 // Create a new assessment
 async function createAssessment(name, description, status, weight, dueDate, classId, userId) {
   try {
@@ -134,6 +149,7 @@ module.exports = {
   createClass,
   deleteClass,
   updateClass,
+  getUserAssessments,
   createAssessment,
   deleteAssessment
 }
