@@ -95,6 +95,7 @@ async function updateClass(classId, name, professor, details) {
   }
 }
 
+
 // Create a new assessment
 async function createAssessment(name, description, status, weight, dueDate, classId, userId) {
   try {
