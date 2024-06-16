@@ -12,7 +12,12 @@ const router = express.Router()
  * in order to access things.
  */
 // router.use(`/`, authenticate(), require("./api"))
-router.use(`/`, require("./api"))
+
+if (process.env.NODE_ENV === "production") {
+  router.use(`/api`, authenticate(), require("./api"))
+} else {
+  router.use(`/api`, require("./api"))
+}
 
 /**
  * Define a simple health check route. If the server is running

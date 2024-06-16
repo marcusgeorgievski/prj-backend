@@ -8,10 +8,9 @@ module.exports = async (req, res, next) => {
     logger.debug("Creating class: " + req.body)
 
     if (!name || !user_id) {
-      logger.error("name, professor, and userId are required")
-      return res
-        .status(400)
-        .json({ error: "name, professor, and userId are required" })
+      const error = new Error("name and user_id are required")
+      error.code = 400
+      throw error
     }
 
     const newClass = await createClass(name, professor, details, user_id)

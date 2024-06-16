@@ -9,7 +9,9 @@ module.exports = async (req, res, next) => {
     logger.debug(`Deleting user with id: ${id}`)
 
     if (!id) {
-      return res.status(400).json({ error: `user id is required: ${id}` })
+      const error = new Error("user id is required")
+      error.code = 400
+      throw error
     }
     const deletedUser = await deleteUser(id)
     res.status(200).json(deletedUser[0])
