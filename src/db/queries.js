@@ -95,9 +95,57 @@ async function updateClass(classId, name, professor, details) {
   }
 }
 
+// Get assessment by assessmentId
+async function getAssessmentById(assessmentId) {
+  try {
+    const result = await db`
+      SELECT * FROM assessments
+      WHERE assessment_id = ${assessmentId}
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error getting assessment by ID:", error);
+    throw error;
+  }
+}
+
+// Get assessments by classId
+async function getAssessmentsByClassId(classId) {
+  try {
+    const result = await db`
+      SELECT * FROM assessments
+      WHERE class_id = ${classId}
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error getting assessments by class ID:", error);
+    throw error;
+  }
+}
+
+// Get assessments by userId
+async function getAssessmentsByUserId(userId) {
+  try {
+    const result = await db`
+      SELECT * FROM assessments
+      WHERE user_id = ${userId}
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error getting assessments by user ID:", error);
+    throw error;
+  }
+}
+
 // Create a new assessment
 async function createAssessment(name, description, status, weight, dueDate, classId, userId) {
   try {
+    logger.debug("createAssessment parameters:", { name, description, status, weight, dueDate, classId, userId });
+
+    if (!name || !userId || !classId) {
+      throw new Error('Missing required fields');
+    }
+
     const result = await db`
       INSERT INTO assessments (name, description, status, weight, due_date, class_id, user_id)
       VALUES (${name}, ${description}, ${status}, ${weight}, ${dueDate}, ${classId}, ${userId})
@@ -109,6 +157,7 @@ async function createAssessment(name, description, status, weight, dueDate, clas
     throw error;
   }
 }
+
 
 // Delete assessment
 async function deleteAssessment(assessmentId, userId) {
@@ -134,6 +183,9 @@ module.exports = {
   createClass,
   deleteClass,
   updateClass,
+  getAssessmentById,
+  getAssessmentsByClassId,
+  getAssessmentsByUserId,
   createAssessment,
   deleteAssessment
 }
