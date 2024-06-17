@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
     const { assessmentId } = req.params
     const { name, description, dueDate, status, weight, classId } = req.body
 
+    console.log(req.params)
     logger.debug(assessmentId, req.body)
 
     if (!name || !assessmentId) {

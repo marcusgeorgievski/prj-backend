@@ -197,5 +197,4 @@ module.exports = {
   createAssessment,
   deleteAssessment,
   updateAssessment,
-  getUserAssessments
 }

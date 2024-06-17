@@ -9,9 +9,10 @@ router.delete("/classes/:classId", require("./classes/delete-class"))
 router.put("/classes/:classId", require("./classes/update-class"))
 
 router.get("/assessments", require("./assessment/get-assessments"))
-router.post("/assessment", require("./assessment/create-assessment"))
-router.delete("/assessment/:assessmentId", require("./assessment/delete-assessment"))
-router.get("/classes/:classId?tab=assessment", require("./assessment/get-assessment"))
+router.post("/assessments", require("./assessment/create-assessment"))
+router.delete("/assessments/:assessmentId", require("./assessment/delete-assessment"))
+router.get("/classes/:classId", require("./assessment/get-assessments-by-class"))
+router.put("/assessments/:assessmentId", require("./assessment/update-assessment"))
 
 // Webhooks
 router.post("/create-user", require("./user/create-user"))
