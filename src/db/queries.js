@@ -95,23 +95,43 @@ async function updateClass(classId, name, professor, details) {
   }
 }
 
-// Get user's assessments
-async function getUserAssessments(userId) {
+// Get assessments by classId
+async function getAssessmentsByClassId(classId) {
+  try {
+    const result = await db`
+      SELECT * FROM assessments
+      WHERE class_id = ${classId}
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error getting assessments by class ID:", error);
+    throw error;
+  }
+}
+
+// Get assessments by userId
+async function getAssessmentsByUserId(userId) {
   try {
     const result = await db`
       SELECT * FROM assessments
       WHERE user_id = ${userId}
-    `
-    return result
+    `;
+    return result;
   } catch (error) {
-    logger.error("Error getting user assessments:", error)
-    throw error
+    logger.error("Error getting assessments by user ID:", error);
+    throw error;
   }
 }
 
 // Create a new assessment
 async function createAssessment(name, description, status, weight, dueDate, classId, userId) {
   try {
+    logger.debug("createAssessment parameters:", { name, description, status, weight, dueDate, classId, userId });
+
+    if (!name || !userId || !classId) {
+      throw new Error('Missing required fields ' + ' name' + name + ' user id '+ userId + ' class id '+ classId);
+    }
+
     const result = await db`
       INSERT INTO assessments (name, description, status, weight, due_date, class_id, user_id)
       VALUES (${name}, ${description}, ${status}, ${weight}, ${dueDate}, ${classId}, ${userId})
@@ -124,12 +144,13 @@ async function createAssessment(name, description, status, weight, dueDate, clas
   }
 }
 
+
 // Delete assessment
-async function deleteAssessment(assessmentId, userId) {
+async function deleteAssessment(assessmentId) {
   try {
     const result = await db`
       DELETE FROM assessments
-      WHERE assessment_id = ${assessmentId} AND user_id = ${userId}
+      WHERE assessment_id = ${assessmentId}
       RETURNING *;
     `;
     return result;
@@ -171,6 +192,8 @@ module.exports = {
   createClass,
   deleteClass,
   updateClass,
+  getAssessmentsByClassId,
+  getAssessmentsByUserId,
   createAssessment,
   deleteAssessment,
   updateAssessment,
