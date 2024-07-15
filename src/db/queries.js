@@ -183,6 +183,81 @@ async function updateAssessment(assessment_id, name, description, dueDate, statu
 }
 
 
+// Get notes by userId
+async function getNotesByUserId(userId) {
+  try {
+    const result = await db`
+      SELECT * FROM notes
+      WHERE user_id = ${userId}
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error getting notes by user ID:", error);
+    throw error;
+  }
+}
+
+// Get notes by classId
+async function getNotesByClassId(classId) {
+  try {
+    const result = await db`
+      SELECT * FROM notes
+      WHERE class_id = ${classId}
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error getting notes by class ID:", error);
+    throw error;
+  }
+}
+
+// Create a new note
+async function createNote(name, content, classId, userId) {
+  try {
+    const result = await db`
+      INSERT INTO notes (name, content, class_id, user_id)
+      VALUES (${name}, ${content}, ${classId}, ${userId})
+      RETURNING *;
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error creating note:", error);
+    throw error;
+  }
+}
+
+// Update a note
+async function updateNote(noteId, name, content) {
+  try {
+    const result = await db`
+      UPDATE notes
+      SET name = ${name},
+          content = ${content},
+          updated_at = NOW()
+      WHERE note_id = ${noteId}
+      RETURNING *;
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error updating note:", error);
+    throw error;
+  }
+}
+
+// Delete a note
+async function deleteNote(noteId) {
+  try {
+    const result = await db`
+      DELETE FROM notes
+      WHERE note_id = ${noteId}
+      RETURNING *;
+    `;
+    return result;
+  } catch (error) {
+    logger.error("Error deleting note:", error);
+    throw error;
+  }
+}
 
 module.exports = {
   getAllUsers,
@@ -197,4 +272,9 @@ module.exports = {
   createAssessment,
   deleteAssessment,
   updateAssessment,
+  getNotesByUserId,
+  getNotesByClassId,
+  createNote,
+  updateNote,
+  deleteNote,
 }
