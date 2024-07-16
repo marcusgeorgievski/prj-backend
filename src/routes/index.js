@@ -1,7 +1,9 @@
-const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node")
-const express = require("express")
-const author = require("../../package.json").author
-const db = require("../db")
+const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node')
+const express = require('express')
+const author = require('../../package.json').author
+const db = require('../db')
+
+const { authenticate } = require('../auth')
 
 // Create a router that we can use to mount our API
 const router = express.Router()
@@ -13,51 +15,51 @@ const router = express.Router()
  */
 // router.use(`/`, authenticate(), require("./api"))
 
-if (process.env.NODE_ENV === "production") {
-  router.use(`/api`, authenticate(), require("./api"))
+if (process.env.NODE_ENV === 'production') {
+  router.use(`/api`, authenticate(), require('./api'))
 } else {
-  router.use(`/api`, require("./api"))
+  router.use(`/api`, require('./api'))
 }
 
 /**
  * Define a simple health check route. If the server is running
  * we'll respond with a 200 OK.  If not, the server isn't healthy.
  */
-router.get("/", async (req, res) => {
-  const start = Date.now();
+router.get('/', async (req, res) => {
+  const start = Date.now()
 
   try {
     // Perform a simple query to check the database connection
-    await db`SELECT 1`;
-    const duration = Date.now() - start;
+    await db`SELECT 1`
+    const duration = Date.now() - start
 
-    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader('Cache-Control', 'no-cache')
     res.status(200).json({
       author,
-      githubUrl: "https://github.com/marcusgeorgievski/prj-backend",
+      githubUrl: 'https://github.com/marcusgeorgievski/prj-backend',
       time: new Date().toISOString(),
-      dbStatus: "healthy",
-      dbResponseTime: `${duration}ms`
-    });
+      dbStatus: 'healthy',
+      dbResponseTime: `${duration}ms`,
+    })
   } catch (error) {
-    const duration = Date.now() - start;
-    console .log(error);
-    
-    res.setHeader("Cache-Control", "no-cache");
+    const duration = Date.now() - start
+    console.log(error)
+
+    res.setHeader('Cache-Control', 'no-cache')
     res.status(500).json({
       author,
-      githubUrl: "https://github.com/marcusgeorgievski/prj-backend",
+      githubUrl: 'https://github.com/marcusgeorgievski/prj-backend',
       time: new Date().toISOString(),
-      dbStatus: "unhealthy",
+      dbStatus: 'unhealthy',
       dbResponseTime: `${duration}ms`,
-      error: error.message
-    });
+      error: error.message,
+    })
   }
-});
+})
 
 // Route that requires authentication through Clerk
-router.get("/clerk-test", ClerkExpressRequireAuth({}), (req, res) => {
-  res.json({ result: "success", ...req.auth })
+router.get('/clerk-test', ClerkExpressRequireAuth({}), (req, res) => {
+  res.json({ result: 'success', ...req.auth })
 })
 
 module.exports = router
