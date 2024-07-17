@@ -47,6 +47,20 @@ async function getUserClasses(userId) {
   }
 }
 
+// Get class by class id
+async function getClassById(classId) {
+  try {
+    const result = await db`
+      SELECT * FROM classes
+      WHERE class_id = ${classId}
+    `;
+    return result;
+  } catch (error) {
+    logger.error('Error getting class by ID:', error);
+    throw error;
+  }
+}
+
 // Create new class
 async function createClass(name, professor, details, userId) {
   try {
@@ -257,13 +271,14 @@ async function createNote(name, content, classId, userId) {
 }
 
 // Update a note
-async function updateNote(noteId, name, content) {
+async function updateNote(noteId, name, content, class_id) {
   try {
     const result = await db`
       UPDATE notes
       SET name = ${name},
           content = ${content},
-          updated_at = NOW()
+          updated_at = NOW(),
+          class_id = ${class_id}
       WHERE note_id = ${noteId}
       RETURNING *;
     `;
@@ -289,11 +304,26 @@ async function deleteNote(noteId) {
   }
 }
 
+// Get note by note id
+async function getNoteById(noteId) {
+  try {
+    const result = await db`
+      SELECT * FROM notes
+      WHERE note_id = ${noteId}
+    `;
+    return result;
+  } catch (error) {
+    logger.error('Error getting note by ID:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllUsers,
   createUser,
   deleteUser,
   getUserClasses,
+  getClassById,
   createClass,
   deleteClass,
   updateClass,
@@ -307,4 +337,5 @@ module.exports = {
   createNote,
   updateNote,
   deleteNote,
+  getNoteById,
 };

@@ -5,6 +5,7 @@ const router = express.Router();
 
 //routes for class
 router.get('/classes', require('./classes/get-classes'));
+router.get('/classes/:classId', require('./classes/get-class'));
 router.post('/classes', require('./classes/create-class'));
 router.delete('/classes/:classId', require('./classes/delete-class'));
 router.put('/classes/:classId', require('./classes/update-class'));
@@ -17,7 +18,7 @@ router.delete(
   require('./assessment/delete-assessment')
 );
 router.get(
-  '/classes/:classId',
+  '/assessments/:classId',
   require('./assessment/get-assessments-by-class')
 );
 router.put(
@@ -27,7 +28,8 @@ router.put(
 
 //routes for notes
 router.get('/notes', require('./note/get-notes'));
-router.get('/class/:classId', require('./note/get-notes-by-class'));
+router.get('/notes/:noteId', require('./note/get-note'));
+router.get('/notes/class/:classId', require('./note/get-notes-by-class'));
 router.post('/notes', require('./note/create-note'));
 router.put('/notes/:noteId', require('./note/update-note'));
 router.delete('/notes/:noteId', require('./note/delete-note'));

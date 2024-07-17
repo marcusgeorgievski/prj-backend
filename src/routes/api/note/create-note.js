@@ -7,9 +7,9 @@ const logger = require('../../../logger');
 
 async function createNote(req, res) {
   try {
-    const { name, content, class_id, user_id } = req.body;
+    const { name, class_id, user_id } = req.body;
     //const userId = req.auth.userId
-    logger.debug('Input values:', { name, content, class_id, user_id });
+    logger.debug('Input values:', { name, class_id, user_id });
 
     if (!name || !class_id || !user_id) {
       return res
@@ -17,15 +17,10 @@ async function createNote(req, res) {
         .json(createErrorResponse(400, 'Missing required fields'));
     }
 
-    const newNote = await queries.createNote(
-      name,
-      content,
-      class_id,
-      user_id
-    );
+    const newNote = await queries.createNote(name, '', class_id, user_id);
     res.status(201).json(createSuccessResponse(newNote));
   } catch (error) {
-    res.status(500).json(createErrorResponse(500, error.message));
+    next(error);
   }
 }
 

@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
 
     const notes = await getNotesByClassId(classId);
     logger.info('Notes retrieved for class:', classId);
+
     res.status(200).json(notes);
   } catch (error) {
     next(error);
