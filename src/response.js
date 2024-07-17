@@ -8,10 +8,10 @@
  */
 module.exports.createSuccessResponse = function (data) {
   return {
-    status: "ok",
+    status: 'ok',
     ...data,
-  }
-}
+  };
+};
 
 /**
  * An error response looks like:
@@ -26,10 +26,10 @@ module.exports.createSuccessResponse = function (data) {
  */
 module.exports.createErrorResponse = function (code, message) {
   return {
-    status: "error",
+    status: 'error',
     error: {
       code,
       message,
     },
-  }
-}
+  };
+};

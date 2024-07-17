@@ -1,8 +1,8 @@
-const logger = require("../logger")
-const db = require("./index")
+const logger = require('../logger');
+const db = require('./index');
 
 async function getAllUsers() {
-  return db`SELECT * FROM users`
+  return db`SELECT * FROM users`;
 }
 
 async function createUser(userId) {
@@ -11,11 +11,11 @@ async function createUser(userId) {
       INSERT INTO users (user_id)
       VALUES (${userId})
       RETURNING *;
-    `
-    return result
+    `;
+    return result;
   } catch (error) {
-    logger.error("Error creating user:", error)
-    throw error
+    logger.error('Error creating user:', error);
+    throw error;
   }
 }
 
@@ -25,11 +25,11 @@ async function deleteUser(userId) {
       DELETE FROM users
       WHERE user_id = ${userId}
       RETURNING *;
-    `
-    return result
+    `;
+    return result;
   } catch (error) {
-    logger.error("Error deleting user:", error)
-    throw error
+    logger.error('Error deleting user:', error);
+    throw error;
   }
 }
 
@@ -39,11 +39,11 @@ async function getUserClasses(userId) {
     const result = await db`
       SELECT * FROM classes
       WHERE user_id = ${userId}
-    `
-    return result
+    `;
+    return result;
   } catch (error) {
-    logger.error("Error getting user classes:", error)
-    throw error
+    logger.error('Error getting user classes:', error);
+    throw error;
   }
 }
 
@@ -54,11 +54,11 @@ async function createClass(name, professor, details, userId) {
       INSERT INTO classes (name, professor, details, user_id)
       VALUES (${name}, ${professor}, ${details}, ${userId})
       RETURNING *;
-    `
-    return result
+    `;
+    return result;
   } catch (error) {
-    logger.error("Error creating class:", error)
-    throw error
+    logger.error('Error creating class:', error);
+    throw error;
   }
 }
 
@@ -69,11 +69,11 @@ async function deleteClass(classId) {
       DELETE FROM classes
       WHERE class_id = ${classId}
       RETURNING *;
-    `
-    return result
+    `;
+    return result;
   } catch (error) {
-    logger.error("Error deleting class:", error)
-    throw error
+    logger.error('Error deleting class:', error);
+    throw error;
   }
 }
 
@@ -87,11 +87,11 @@ async function updateClass(classId, name, professor, details) {
         details = ${details}
     WHERE class_id = ${classId} 
     RETURNING *
-    `
-    return result
+    `;
+    return result;
   } catch (error) {
-    logger.error("Error updating class:", error)
-    throw error
+    logger.error('Error updating class:', error);
+    throw error;
   }
 }
 
@@ -104,7 +104,7 @@ async function getAssessmentsByClassId(classId) {
     `;
     return result;
   } catch (error) {
-    logger.error("Error getting assessments by class ID:", error);
+    logger.error('Error getting assessments by class ID:', error);
     throw error;
   }
 }
@@ -118,18 +118,42 @@ async function getAssessmentsByUserId(userId) {
     `;
     return result;
   } catch (error) {
-    logger.error("Error getting assessments by user ID:", error);
+    logger.error('Error getting assessments by user ID:', error);
     throw error;
   }
 }
 
 // Create a new assessment
-async function createAssessment(name, description, status, weight, dueDate, classId, userId) {
+async function createAssessment(
+  name,
+  description,
+  status,
+  weight,
+  dueDate,
+  classId,
+  userId
+) {
   try {
-    logger.debug("createAssessment parameters:", { name, description, status, weight, dueDate, classId, userId });
+    logger.debug('createAssessment parameters:', {
+      name,
+      description,
+      status,
+      weight,
+      dueDate,
+      classId,
+      userId,
+    });
 
     if (!name || !userId || !classId) {
-      throw new Error('Missing required fields ' + ' name' + name + ' user id '+ userId + ' class id '+ classId);
+      throw new Error(
+        'Missing required fields ' +
+          ' name' +
+          name +
+          ' user id ' +
+          userId +
+          ' class id ' +
+          classId
+      );
     }
 
     const result = await db`
@@ -144,7 +168,6 @@ async function createAssessment(name, description, status, weight, dueDate, clas
   }
 }
 
-
 // Delete assessment
 async function deleteAssessment(assessmentId) {
   try {
@@ -155,13 +178,21 @@ async function deleteAssessment(assessmentId) {
     `;
     return result;
   } catch (error) {
-    logger.error("Error deleting assessment:", error);
+    logger.error('Error deleting assessment:', error);
     throw error;
   }
 }
 
 //update assessment
-async function updateAssessment(assessment_id, name, description, dueDate, status, weight, classId){
+async function updateAssessment(
+  assessment_id,
+  name,
+  description,
+  dueDate,
+  status,
+  weight,
+  classId
+) {
   try {
     const result = await db`
     UPDATE assessments
@@ -174,14 +205,13 @@ async function updateAssessment(assessment_id, name, description, dueDate, statu
         class_id = ${classId}
     WHERE assessment_id = ${assessment_id} 
     RETURNING *
-    `
-    return result
-}catch (error){
-  logger.error("Error updating assessment:", error)
-  throw error
+    `;
+    return result;
+  } catch (error) {
+    logger.error('Error updating assessment:', error);
+    throw error;
   }
 }
-
 
 // Get notes by userId
 async function getNotesByUserId(userId) {
@@ -192,7 +222,7 @@ async function getNotesByUserId(userId) {
     `;
     return result;
   } catch (error) {
-    logger.error("Error getting notes by user ID:", error);
+    logger.error('Error getting notes by user ID:', error);
     throw error;
   }
 }
@@ -206,7 +236,7 @@ async function getNotesByClassId(classId) {
     `;
     return result;
   } catch (error) {
-    logger.error("Error getting notes by class ID:", error);
+    logger.error('Error getting notes by class ID:', error);
     throw error;
   }
 }
@@ -221,7 +251,7 @@ async function createNote(name, content, classId, userId) {
     `;
     return result;
   } catch (error) {
-    logger.error("Error creating note:", error);
+    logger.error('Error creating note:', error);
     throw error;
   }
 }
@@ -239,7 +269,7 @@ async function updateNote(noteId, name, content) {
     `;
     return result;
   } catch (error) {
-    logger.error("Error updating note:", error);
+    logger.error('Error updating note:', error);
     throw error;
   }
 }
@@ -254,7 +284,7 @@ async function deleteNote(noteId) {
     `;
     return result;
   } catch (error) {
-    logger.error("Error deleting note:", error);
+    logger.error('Error deleting note:', error);
     throw error;
   }
 }
@@ -277,4 +307,4 @@ module.exports = {
   createNote,
   updateNote,
   deleteNote,
-}
+};
