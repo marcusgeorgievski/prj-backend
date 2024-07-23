@@ -34,10 +34,6 @@ router.post('/notes', require('./note/create-note'));
 router.put('/notes/:noteId', require('./note/update-note'));
 router.delete('/notes/:noteId', require('./note/delete-note'));
 
-// Webhooks
-router.post('/create-user', require('./user/create-user'));
-router.post('/delete-user', require('./user/delete-user'));
-
 // Route that requires authentication through Clerk
 router.get('/auth-test', (req, res) => {
   res.json(createSuccessResponse(req.auth));

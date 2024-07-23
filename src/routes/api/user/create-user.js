@@ -24,5 +24,3 @@ module.exports = async (req, res, next) => {
     next(error);
   }
 };
-
-delete user;

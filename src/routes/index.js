@@ -62,7 +62,7 @@ router.get('/clerk-test', ClerkExpressRequireAuth({}), (req, res) => {
 });
 
 // Webhooks
-router.post('/webooks/create-user', require('./api/user/create-user'));
-router.post('/webooks/delete-user', require('./api/user/delete-user'));
+router.post('/webhooks/create-user', require('./api/user/create-user'));
+router.post('/webhooks/delete-user', require('./api/user/delete-user'));
 
 module.exports = router;
