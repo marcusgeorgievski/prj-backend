@@ -5,11 +5,11 @@ async function getAllUsers() {
   return db`SELECT * FROM users`;
 }
 
-async function createUser(userId) {
+async function createUser(userId, email) {
   try {
     const result = await db`
-      INSERT INTO users (user_id)
-      VALUES (${userId})
+      INSERT INTO users (user_id, email)
+      VALUES (${userId}, ${email})
       RETURNING *;
     `;
     return result;

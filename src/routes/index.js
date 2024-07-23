@@ -2,7 +2,6 @@ const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node');
 const express = require('express');
 const author = require('../../package.json').author;
 const db = require('../db');
-
 const { authenticate } = require('../auth');
 
 // Create a router that we can use to mount our API
@@ -61,5 +60,9 @@ router.get('/', async (req, res) => {
 router.get('/clerk-test', ClerkExpressRequireAuth({}), (req, res) => {
   res.json({ result: 'success', ...req.auth });
 });
+
+// Webhooks
+router.post('/webooks/create-user', require('./api/user/create-user'));
+router.post('/webooks/delete-user', require('./api/user/delete-user'));
 
 module.exports = router;
