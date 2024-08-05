@@ -1,9 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const logger = require('./logger');
-const { createErrorResponse } = require('./response');
-const pino = require('pino-http')({
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const logger = require("./logger");
+const { createErrorResponse } = require("./response");
+const pino = require("pino-http")({
   logger,
 });
 
@@ -18,7 +18,7 @@ app.use(cors()); // Use CORS middleware so we can make requests across origins
 app.use(pino);
 
 // Routes
-app.use('/', require('./routes'));
+app.use("/", require("./routes"));
 
 //error handling:
 app.use((err, req, res, next) => {
@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
     .json(
       createErrorResponse(
         err.code || 500,
-        err.message || 'Something went wrong'
+        err.message || "Something went wrong"
       )
     );
 });

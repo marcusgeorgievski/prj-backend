@@ -1,5 +1,5 @@
-const { deleteUser } = require('../../../db/queries');
-const logger = require('../../../logger');
+const { deleteUser } = require("../../../db/queries");
+const logger = require("../../../logger");
 
 module.exports = async (req, res, next) => {
   try {
@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
     logger.debug(`Deleting user with id: ${id}`);
 
     if (!id) {
-      const error = new Error('user id is required');
+      const error = new Error("user id is required");
       error.code = 400;
       throw error;
     }

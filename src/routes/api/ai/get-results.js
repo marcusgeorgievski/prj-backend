@@ -1,23 +1,23 @@
 // routes/api/add-class.js
-const logger = require("../../../logger")
+const logger = require("../../../logger");
 
-const { OpenAI } = require("openai")
+const { OpenAI } = require("openai");
 
 module.exports = async (req, res, next) => {
   try {
-    const { content } = req.body
-    logger.debug(content.slice(0, 20))
+    const { content } = req.body;
+    logger.debug(content.slice(0, 20));
 
     if (!content) {
-      const error = new Error("content is required")
-      error.code = 400
-      logger.error(error)
-      throw error
+      const error = new Error("content is required");
+      error.code = 400;
+      logger.error(error);
+      throw error;
     }
 
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
-    })
+    });
 
     const completion = await openai.chat.completions.create({
       messages: [
@@ -25,20 +25,20 @@ module.exports = async (req, res, next) => {
         { role: "user", content: content },
       ],
       model: "gpt-4o-mini",
-    })
+    });
 
-    const result = completion.choices[0].message.content
-    logger.info(result)
+    const result = completion.choices[0].message.content;
+    logger.info(result);
 
     // parse the result to JSON
-    const parsedResult = JSON.parse(result)
+    const parsedResult = JSON.parse(result);
 
-    res.status(200).json(parsedResult)
+    res.status(200).json(parsedResult);
   } catch (error) {
-    logger.error(error)
-    next(error)
+    logger.error(error);
+    next(error);
   }
-}
+};
 
 const prompt = `
 Your only task is to extract the class and assignment information from a class addendum. 
@@ -554,4 +554,4 @@ And the expected Output:
 }
 
 Remember to only return the JSON that will be parsed in a single line, and nothing else. Do not format with special characters or newlines, as this will cause an error since I will parse with JSON.parse(result).
-`
+`;

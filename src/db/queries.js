@@ -1,5 +1,5 @@
-const logger = require('../logger');
-const db = require('./index');
+const logger = require("../logger");
+const db = require("./index");
 
 async function getAllUsers() {
   return db`SELECT * FROM users`;
@@ -14,7 +14,7 @@ async function createUser(userId, email) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error creating user:', error);
+    logger.error("Error creating user:", error);
     throw error;
   }
 }
@@ -28,7 +28,7 @@ async function deleteUser(userId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error deleting user:', error);
+    logger.error("Error deleting user:", error);
     throw error;
   }
 }
@@ -42,7 +42,7 @@ async function getUserClasses(userId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error getting user classes:', error);
+    logger.error("Error getting user classes:", error);
     throw error;
   }
 }
@@ -56,7 +56,7 @@ async function getClassById(classId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error getting class by ID:', error);
+    logger.error("Error getting class by ID:", error);
     throw error;
   }
 }
@@ -71,7 +71,7 @@ async function createClass(name, professor, details, userId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error creating class:', error);
+    logger.error("Error creating class:", error);
     throw error;
   }
 }
@@ -86,7 +86,7 @@ async function deleteClass(classId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error deleting class:', error);
+    logger.error("Error deleting class:", error);
     throw error;
   }
 }
@@ -104,7 +104,7 @@ async function updateClass(classId, name, professor, details) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error updating class:', error);
+    logger.error("Error updating class:", error);
     throw error;
   }
 }
@@ -118,7 +118,7 @@ async function getAssessmentsByClassId(classId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error getting assessments by class ID:', error);
+    logger.error("Error getting assessments by class ID:", error);
     throw error;
   }
 }
@@ -132,7 +132,7 @@ async function getAssessmentsByUserId(userId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error getting assessments by user ID:', error);
+    logger.error("Error getting assessments by user ID:", error);
     throw error;
   }
 }
@@ -148,7 +148,7 @@ async function createAssessment(
   userId
 ) {
   try {
-    logger.debug('createAssessment parameters:', {
+    logger.debug("createAssessment parameters:", {
       name,
       description,
       status,
@@ -160,12 +160,12 @@ async function createAssessment(
 
     if (!name || !userId || !classId) {
       throw new Error(
-        'Missing required fields ' +
-          ' name' +
+        "Missing required fields " +
+          " name" +
           name +
-          ' user id ' +
+          " user id " +
           userId +
-          ' class id ' +
+          " class id " +
           classId
       );
     }
@@ -177,7 +177,7 @@ async function createAssessment(
     `;
     return result;
   } catch (error) {
-    logger.error('Error creating assessment:', error);
+    logger.error("Error creating assessment:", error);
     throw error;
   }
 }
@@ -192,7 +192,7 @@ async function deleteAssessment(assessmentId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error deleting assessment:', error);
+    logger.error("Error deleting assessment:", error);
     throw error;
   }
 }
@@ -222,7 +222,7 @@ async function updateAssessment(
     `;
     return result;
   } catch (error) {
-    logger.error('Error updating assessment:', error);
+    logger.error("Error updating assessment:", error);
     throw error;
   }
 }
@@ -236,7 +236,7 @@ async function getNotesByUserId(userId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error getting notes by user ID:', error);
+    logger.error("Error getting notes by user ID:", error);
     throw error;
   }
 }
@@ -250,7 +250,7 @@ async function getNotesByClassId(classId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error getting notes by class ID:', error);
+    logger.error("Error getting notes by class ID:", error);
     throw error;
   }
 }
@@ -265,7 +265,7 @@ async function createNote(name, content, classId, userId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error creating note:', error);
+    logger.error("Error creating note:", error);
     throw error;
   }
 }
@@ -284,7 +284,7 @@ async function updateNote(noteId, name, content, class_id) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error updating note:', error);
+    logger.error("Error updating note:", error);
     throw error;
   }
 }
@@ -299,7 +299,7 @@ async function deleteNote(noteId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error deleting note:', error);
+    logger.error("Error deleting note:", error);
     throw error;
   }
 }
@@ -313,7 +313,7 @@ async function getNoteById(noteId) {
     `;
     return result;
   } catch (error) {
-    logger.error('Error getting note by ID:', error);
+    logger.error("Error getting note by ID:", error);
     throw error;
   }
 }

@@ -1,8 +1,8 @@
 const {
   createSuccessResponse,
   createErrorResponse,
-} = require('../../../response');
-const queries = require('../../../db/queries');
+} = require("../../../response");
+const queries = require("../../../db/queries");
 
 async function deleteNote(req, res) {
   try {

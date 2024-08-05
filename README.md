@@ -1,7 +1,10 @@
-# prj-backend
+# StudyHome Backend
 
 ## Usage
 
+Configure env vars
+
 ```bash
-npm run dev
+npm i
+npm run start
 ```

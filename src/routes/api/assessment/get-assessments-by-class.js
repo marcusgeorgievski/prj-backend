@@ -1,7 +1,7 @@
-const logger = require('../../../logger');
+const logger = require("../../../logger");
 
 const getAssessmentsByClassId =
-  require('../../../db/queries').getAssessmentsByClassId;
+  require("../../../db/queries").getAssessmentsByClassId;
 
 module.exports = async (req, res, next) => {
   try {

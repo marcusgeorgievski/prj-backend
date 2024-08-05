@@ -1,4 +1,4 @@
-const postgres = require('postgres');
+const postgres = require("postgres");
 
 const db = postgres({
   host: process.env.PGHOST,
@@ -6,7 +6,7 @@ const db = postgres({
   database: process.env.PGDATABASE,
   username: process.env.PGUSER,
   password: process.env.PGPASSWORD,
-  ssl: 'true',
+  ssl: "true",
 });
 
 module.exports = db;

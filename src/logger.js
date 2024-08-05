@@ -1,12 +1,12 @@
 /**
  * Logger module.
  */
-require("dotenv").config()
+require("dotenv").config();
 
-console.log(process.env.LOG_LEVEL)
+console.log(process.env.LOG_LEVEL);
 
 // Use `info` as our standard log level if not specified
-const options = { level: process.env.LOG_LEVEL || "info" }
+const options = { level: process.env.LOG_LEVEL || "info" };
 
 // If we're doing `debug` logging, make the logs easier to read
 if (options.level === "debug") {
@@ -16,9 +16,9 @@ if (options.level === "debug") {
     options: {
       colorize: true,
     },
-  }
+  };
 }
 
 // Create and export a Pino Logger instance:
 // https://getpino.io/#/docs/api?id=logger
-module.exports = require("pino")(options)
+module.exports = require("pino")(options);

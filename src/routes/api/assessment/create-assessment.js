@@ -1,5 +1,5 @@
-const { createAssessment } = require('../../../db/queries');
-const logger = require('../../../logger');
+const { createAssessment } = require("../../../db/queries");
+const logger = require("../../../logger");
 
 module.exports = async (req, res, next) => {
   try {
@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
       req.body;
 
     // Log the input values
-    logger.debug('Input values:', {
+    logger.debug("Input values:", {
       name,
       description,
       status,
@@ -19,10 +19,10 @@ module.exports = async (req, res, next) => {
 
     // Input validation
     if (!name || !userId || !classId) {
-      logger.error('Name, userId, and classId are required');
+      logger.error("Name, userId, and classId are required");
       return res
         .status(400)
-        .json({ error: 'Name, userId, and classId are required' });
+        .json({ error: "Name, userId, and classId are required" });
     }
 
     const assessment = await createAssessment(
@@ -35,10 +35,10 @@ module.exports = async (req, res, next) => {
       userId
     );
 
-    logger.info('New assessment:', assessment);
+    logger.info("New assessment:", assessment);
     res.status(201).json(assessment[0]);
   } catch (error) {
-    logger.error('Error creating assessment:', error);
+    logger.error("Error creating assessment:", error);
     next(error);
   }
 };

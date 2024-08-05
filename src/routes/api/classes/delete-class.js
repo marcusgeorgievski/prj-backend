@@ -1,5 +1,5 @@
-const { deleteClass } = require('../../../db/queries');
-const logger = require('../../../logger');
+const { deleteClass } = require("../../../db/queries");
+const logger = require("../../../logger");
 
 module.exports = async (req, res, next) => {
   try {
@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
 
     // Check if the classId is provided
     if (!classId) {
-      const error = new Error('classId is required');
+      const error = new Error("classId is required");
       error.code = 400;
       throw error;
     }
@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
     const deletedClass = await deleteClass(classId);
 
     if (deletedClass.length === 0) {
-      const error = new Error('Class not found');
+      const error = new Error("Class not found");
       error.code = 404;
       throw error;
     }

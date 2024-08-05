@@ -1,6 +1,6 @@
-const { updateClass } = require('../../../db/queries');
+const { updateClass } = require("../../../db/queries");
 
-const logger = require('../../../logger');
+const logger = require("../../../logger");
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
     logger.debug(classId, req.body);
 
     if (!name || !classId) {
-      const error = new Error('name and classId are required');
+      const error = new Error("name and classId are required");
       error.code = 400;
       throw error;
     }

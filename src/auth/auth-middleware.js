@@ -1,5 +1,5 @@
-const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node');
-const { createErrorResponse } = require('../response');
+const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node");
+const { createErrorResponse } = require("../response");
 
 module.exports.authenticate = () => {
   return async function (req, res, next) {
@@ -9,12 +9,12 @@ module.exports.authenticate = () => {
         if (err) {
           return res
             .status(401)
-            .json(createErrorResponse(401, 'Unauthorized'));
+            .json(createErrorResponse(401, "Unauthorized"));
         }
         next();
       });
     } catch (error) {
-      res.status(401).json(createErrorResponse(401, 'Unauthorized'));
+      res.status(401).json(createErrorResponse(401, "Unauthorized"));
     }
   };
 };
